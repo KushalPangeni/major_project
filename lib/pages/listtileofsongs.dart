@@ -1,10 +1,10 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-// import 'package:assets_audio_player/assets_audio_player.dart';
-import 'package:major_project/assetaudio.dart';
-import 'package:major_project/drawer.dart';
-import 'package:major_project/playseparate.dart';
+import 'package:get_it/get_it.dart';
+import 'package:major_project/player/assetaudio.dart';
+import 'package:major_project/pages/drawer.dart';
+import 'package:major_project/player/playseparate.dart';
 import 'package:major_project/songs.dart';
 
 class Listtileofsongs extends StatefulWidget {
@@ -17,6 +17,7 @@ class Listtileofsongs extends StatefulWidget {
 class _ListtileofsongsState extends State<Listtileofsongs> {
   int endex = 0;
   List<Map> musiclist = musicList;
+  PlayerSeparate playerSeparate = GetIt.instance.get<PlayerSeparate>();
   @override
   void initState() {
     super.initState();
@@ -28,12 +29,6 @@ class _ListtileofsongsState extends State<Listtileofsongs> {
       endex = a;
       log(endex.toString() + ' endex value');
     });
-  }
-
-  void callAudio(int endex) {
-    AssetsAudio(
-      source: musicList[endex]['trackDetails']['source'],
-    );
   }
 
   @override
@@ -52,16 +47,11 @@ class _ListtileofsongsState extends State<Listtileofsongs> {
                   setState(() {
                     eindex(index);
                   });
-                  AssetsAudio(
-                    source: endex,
-                  );
                   log('$index tapped');
-                  PlayerSeparate().open(endex);
+                  playerSeparate.open(endex);
                 },
               ))),
-      bottomNavigationBar: AssetsAudio(
-        source: endex,
-      ),
+      bottomNavigationBar: const AssetsAudio(),
     );
   }
 }

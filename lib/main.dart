@@ -1,9 +1,14 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-// import 'package:major_project/homepage.dart';
+import 'package:major_project/pages/homepage.dart';
+import 'package:get_it/get_it.dart';
+import 'package:major_project/player/playseparate.dart';
 
 void main() {
+  //creating PlayerSeparate Class as singleton by using GetIt package
+  final GetIt getIt = GetIt.instance;
+  getIt.registerLazySingleton(() => PlayerSeparate());
   log('main');
   runApp(const MyApp());
 }
@@ -28,30 +33,7 @@ class _MyAppState extends State<MyApp> {
       home: SafeArea(
         child: Scaffold(
           backgroundColor: Colors.orange[200],
-          // drawer: const Drawer(
-          //   child: DrawerList(),
-          // ),
-          // appBar: AppBar(
-          //   title: Row(
-          //     // mainAxisAlignment: MainAxisAlignment,
-          //     children: const [
-          //       Expanded(
-          //         child: Icon(Icons.music_note),
-          //         flex: 1,
-          //       ),
-          //       Expanded(
-          //         child: Text(
-          //           "GeetSunam",
-          //         ),
-          //         flex: 9,
-          //       )
-          //     ],
-          //   ),
-          // ),
-          // body: const HomePage(),
-          // bottomNavigationBar: const AssetsAudio(
-          //   source: 'songs/FarrukoPepas.mp3.mp3',
-          // )
+          body: const HomePage(),
         ),
       ),
     );

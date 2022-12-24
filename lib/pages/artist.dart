@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:major_project/drawer.dart';
+import 'package:major_project/pages/drawer.dart';
 import 'package:major_project/songs.dart';
 
 class ArtistPage extends StatefulWidget {

@@ -3,7 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
-import 'package:major_project/trending.dart';
+import 'package:major_project/pages/trending.dart';
 // import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -80,8 +80,7 @@ class _MusicState extends State<Music> {
                     String title =
                         songs[index].path.split("/").last.split(".")[0];
                     Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) =>
-                            Trending(title, songs[index].path)));
+                        builder: (context) => Trending(title)));
                     // player.playing == true ? player.stop() : player.play;
                     // player.setFilePath(songs[index].path);
                     // log('${player.setFilePath(songs[index].path)}');
@@ -91,7 +90,7 @@ class _MusicState extends State<Music> {
                     // );
 
                     setState(() {
-                      Trending(title.toString(), songs[index].path);
+                      Trending(title.toString());
                       // player.playing == true ? player.stop() : player.play();
                     });
                     // player.duration

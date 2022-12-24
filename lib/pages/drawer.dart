@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:major_project/artist.dart';
-import 'package:major_project/homepage.dart';
-// import 'package:major_project/listtileofsongs.dart';
+import 'package:major_project/pages/artist.dart';
+import 'package:major_project/pages/homepage.dart';
+import 'package:major_project/pages/listtileofsongs.dart';
+import 'package:major_project/pages/trending.dart';
 
 class DrawerList extends StatefulWidget {
   const DrawerList({Key? key}) : super(key: key);
@@ -67,20 +68,20 @@ Widget buildMenuItems(context) => Column(
           leading: const Icon(Icons.trending_up_outlined),
           title: const Text("Trending"),
           onTap: () {
-            // Navigator.of(context).push(MaterialPageRoute(
-            //     builder: (context) =>
-            //         const SafeArea(child: Trending('Click any music'))));
+            Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) =>
+                    const SafeArea(child: Trending('Lilith'))));
           },
         ),
-        // ListTile(
-        //   leading: const Icon(Icons.explore),
-        //   title: const Text("Explore"),
-        //   onTap: () {
-        //     Navigator.of(context).push(MaterialPageRoute(
-        //         builder: (context) =>
-        //             const SafeArea(child: Listtileofsongs())));
-        //   },
-        // ),
+        ListTile(
+          leading: const Icon(Icons.explore),
+          title: const Text("Explore"),
+          onTap: () {
+            Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) =>
+                    const SafeArea(child: Listtileofsongs())));
+          },
+        ),
         ListTile(
           leading: const Icon(Icons.music_note),
           title: const Text("New Releases"),

@@ -1,16 +1,14 @@
 // ignore_for_file: use_key_in_widget_constructors
 
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
-import 'package:audioplayers/audioplayers.dart';
-import 'package:major_project/slider.dart';
-// import 'package:major_project/music.dart';
-// import 'package:geetsunam/audio_file.dart';
 
 class Trending extends StatefulWidget {
   final String songName;
-  final String pathName;
+  // final String pathName;
 
-  const Trending(this.songName, this.pathName);
+  const Trending(this.songName);
   // const Trending({@required String? songName ,Key? key}) : super(key: key);
 
   @override
@@ -18,23 +16,12 @@ class Trending extends StatefulWidget {
 }
 
 class _TrendingState extends State<Trending> {
-  late AudioPlayer advancedPlayer;
-  AudioCache cache = AudioCache();
   Duration position = Duration.zero;
   Duration duration = Duration.zero;
-  bool isPlaying = false;
-  bool isPaused = false;
-  bool isLoop = false;
-  late String songName;
-  late String pathName;
-  final player = AudioPlayer();
 
   @override
   void initState() {
     super.initState();
-    advancedPlayer = AudioPlayer();
-    songName = widget.songName;
-    pathName = widget.pathName;
     // if (songName = null) ? ' ': widget;
     //   // cache = AudioCache();
 
@@ -78,7 +65,7 @@ class _TrendingState extends State<Trending> {
       child: ListView(
         children: [
           SizedBox(
-            height: 380,
+            height: screenheight,
             child: Stack(
               alignment: AlignmentDirectional.topCenter,
               children: [
@@ -129,53 +116,103 @@ class _TrendingState extends State<Trending> {
                             ),
                           ),
                         ),
-                        MSlider(pathName)
+                        // MSlider(pathName)
                         //--------------
-                        // Slider(
-                        //     min: 0,
-                        //     max: duration.inSeconds.toDouble(),
-                        //     value: position.inSeconds.toDouble(),
-                        //     onChanged: (value) {
-                        //       setState(() {
-                        //         final position =
-                        //             Duration(seconds: value.toInt());
-                        //         player.seek(position);
-                        //         // changeToSeconds(value.toInt());
-                        //         // value = value;
-                        //       });
-                        //     }),
-                        // Padding(
-                        //   padding: const EdgeInsets.all(15.0),
-                        //   child: Row(
-                        //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        //     children: [
-                        //       // Text(position.toString().split('.')[0]),
-                        //       // Text((duration - position).toString().split('.')[0]),
-                        //       //this upper one is so easy to make
+                        Slider(
+                            min: 0,
+                            max: duration.inSeconds.toDouble(),
+                            value: position.inSeconds.toDouble(),
+                            onChanged: (value) {
+                              setState(() {
+                                // final position =
+                                //     Duration(seconds: value.toInt());
+                                // player.seek(position);
+                                // changeToSeconds(value.toInt());
+                                // value = value;
+                              });
+                            }),
+                        Padding(
+                          padding: const EdgeInsets.all(15.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              // Text(position.toString().split('.')[0]),
+                              // Text((duration - position).toString().split('.')[0]),
+                              //this upper one is so easy to make
 
-                        //       Text(formatTime(position)),
-                        //       Text(formatTime(duration - position))
-                        //       // Text('$duration.')
-                        //     ],
-                        //   ),
-                        // ),
-                        // CircleAvatar(
-                        //   child: IconButton(
-                        //     icon: Icon(
-                        //         isPlaying ? Icons.pause : Icons.play_arrow),
-                        //     onPressed: () {
-                        //       setState(() {
-                        //         if (isPlaying) {
-                        //           player.pause();
-                        //         } else {
-                        //           // DeviceFileSource(songPathName);
-                        //           // player.play(DeviceFileSource(songPathName));
-                        //           player.resume();
-                        //         }
-                        //       });
-                        //     },
-                        //   ),
-                        // )
+                              Text(formatTime(position)),
+                              Text(formatTime(duration - position))
+                              // Text('$duration.')
+                            ],
+                          ),
+                        ),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Expanded(
+                                    child: IconButton(
+                                      icon: const Icon(Icons.shuffle),
+                                      onPressed: () {
+                                        log('Shuffle');
+                                      },
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Expanded(
+                              flex: 3,
+                              child: SizedBox(
+                                // color: Colors.amber,
+                                height: 80,
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      child: IconButton(
+                                        icon: const Icon(Icons.skip_previous),
+                                        onPressed: () {
+                                          log('Previous');
+                                        },
+                                      ),
+                                    ),
+                                    Expanded(
+                                      child: CircleAvatar(
+                                        maxRadius: 30,
+                                        child: IconButton(
+                                          icon: const Icon(Icons.pause),
+                                          // iconSize: 20,
+                                          onPressed: () {
+                                            log('Pause');
+                                          },
+                                        ),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      child: IconButton(
+                                        icon: const Icon(Icons.skip_next),
+                                        onPressed: () {
+                                          log('next');
+                                        },
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              child: IconButton(
+                                icon: const Icon(Icons.repeat),
+                                onPressed: () {
+                                  log('Repeat');
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
+
                         //--------------
                       ],
                     ),
@@ -184,7 +221,7 @@ class _TrendingState extends State<Trending> {
                       borderRadius: BorderRadius.circular(30),
                       color: Colors.yellow,
                     ),
-                    height: (screenheight / 3),
+                    height: screenheight / 2.5,
                     width: screenwidth,
                   ),
                 ),

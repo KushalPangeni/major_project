@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:major_project/drawer.dart';
-import 'package:major_project/genre.dart';
-// import 'package:major_project/assetaudio.dart';
+import 'package:get_it/get_it.dart';
+import 'package:major_project/player/assetaudio.dart';
+import 'package:major_project/pages/drawer.dart';
+import 'package:major_project/pages/genre.dart';
+import 'package:major_project/player/playseparate.dart';
+import 'package:major_project/songs.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -12,6 +15,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  PlayerSeparate playerSeparate = GetIt.instance.get<PlayerSeparate>();
+  List<Map> musiclist = musicList;
   @override
   Widget build(BuildContext context) {
     // final double screenheight = MediaQuery.of(context).size.height;
@@ -47,24 +52,13 @@ class _HomePageState extends State<HomePage> {
             ),
             child: CarouselSlider(
                 items: [
-                  song(
-                      'https://img.youtube.com/vi/fUk527d7LFU/maxresdefault.jpg',
-                      screenwidth),
-                  song(
-                      'https://img.youtube.com/vi/RHU1bvWZavY/maxresdefault.jpg',
-                      screenwidth),
-                  song(
-                      'https://img.youtube.com/vi/ZyCUcOFzH7w/maxresdefault.jpg',
-                      screenwidth),
-                  song(
-                      'https://img.youtube.com/vi/ooMeMvww2oA/maxresdefault.jpg',
-                      screenwidth),
-                  song(
-                      'https://img.youtube.com/vi/gkq4sOmjWXY/maxresdefault.jpg',
-                      screenwidth),
-                  song(
-                      'https://img.youtube.com/vi/OlYoCjUGPJ4/maxresdefault.jpg',
-                      screenwidth),
+                  //musicList[index]['trackDetails']['coverArt']
+                  song(musicList[2]['trackDetails']['coverArt'], screenwidth),
+                  song(musicList[5]['trackDetails']['coverArt'], screenwidth),
+                  song(musicList[11]['trackDetails']['coverArt'], screenwidth),
+                  song(musicList[8]['trackDetails']['coverArt'], screenwidth),
+                  song(musicList[6]['trackDetails']['coverArt'], screenwidth),
+                  song(musicList[7]['trackDetails']['coverArt'], screenwidth),
                 ],
                 options: CarouselOptions(
                   autoPlayAnimationDuration: const Duration(milliseconds: 500),
@@ -87,6 +81,7 @@ class _HomePageState extends State<HomePage> {
           const GenreCard()
         ],
       ),
+      bottomNavigationBar: const AssetsAudio(),
     );
   }
 
