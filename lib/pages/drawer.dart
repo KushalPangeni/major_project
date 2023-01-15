@@ -3,6 +3,7 @@ import 'package:major_project/pages/artist.dart';
 import 'package:major_project/pages/homepage.dart';
 import 'package:major_project/pages/listtileofsongs.dart';
 import 'package:major_project/pages/trending.dart';
+import 'package:major_project/player/assetaudio.dart';
 
 class DrawerList extends StatefulWidget {
   const DrawerList({Key? key}) : super(key: key);
@@ -85,7 +86,10 @@ Widget buildMenuItems(context) => Column(
         ListTile(
           leading: const Icon(Icons.music_note),
           title: const Text("New Releases"),
-          onTap: () {},
+          onTap: () {
+            // Navigator.of(context).push(MaterialPageRoute(
+            //     builder: (context) => const SafeArea(child: Player())));
+          },
         ),
         ListTile(
           leading: const Icon(Icons.thumb_up),
@@ -103,7 +107,10 @@ Widget buildMenuItems(context) => Column(
         ListTile(
           leading: const Icon(Icons.favorite_outline),
           title: const Text("Liked Songs"),
-          onTap: () {},
+          onTap: () {
+            Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => const SafeArea(child: AsseAudio())));
+          },
         ),
         ListTile(
           leading: const Icon(Icons.person),

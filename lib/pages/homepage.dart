@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:get_it/get_it.dart';
-import 'package:major_project/player/assetaudio.dart';
+import 'package:major_project/player/controller.dart';
 import 'package:major_project/pages/drawer.dart';
 import 'package:major_project/pages/genre.dart';
 import 'package:major_project/player/playseparate.dart';
@@ -53,7 +53,7 @@ class _HomePageState extends State<HomePage> {
             child: CarouselSlider(
                 items: [
                   //musicList[index]['trackDetails']['coverArt']
-                  song(musicList[2]['trackDetails']['coverArt'], screenwidth),
+                  song('images/cover.jpg', screenwidth),
                   song(musicList[5]['trackDetails']['coverArt'], screenwidth),
                   song(musicList[11]['trackDetails']['coverArt'], screenwidth),
                   song(musicList[8]['trackDetails']['coverArt'], screenwidth),
@@ -78,10 +78,86 @@ class _HomePageState extends State<HomePage> {
           const SizedBox(
             height: 30,
           ), //2nd part
-          const GenreCard()
+          const GenreCard(),
+          const SizedBox(height: 20),
+
+          // Container(
+          //   height: 80,
+          //   color: Colors.amber,
+          //   padding: const EdgeInsets.fromLTRB(0, 2, 5, 2),
+          //   child: Row(
+          //     children: [
+          //       Expanded(
+          //         child: Card(
+          //           clipBehavior: Clip.antiAliasWithSaveLayer,
+          //           child: const Image(
+          //             image: AssetImage('images/me.png'),
+          //             fit: BoxFit.fill,
+          //           ),
+          //           shape: RoundedRectangleBorder(
+          //               borderRadius: BorderRadius.circular(10)),
+          //         ),
+          //       ),
+          //       Expanded(
+          //         child: Column(
+          //           mainAxisAlignment: MainAxisAlignment.center,
+          //           children: const [
+          //             Text(
+          //               "If I can't have love, I want Power",
+          //               overflow: TextOverflow.ellipsis,
+          //               style: TextStyle(
+          //                   fontSize: 15, fontWeight: FontWeight.w500),
+          //               maxLines: 1,
+          //             ),
+          //             Text('Halsey')
+          //           ],
+          //         ),
+          //       ),
+          //       Expanded(
+          //           child: Row(
+          //         children: [
+          //           Expanded(
+          //             child: IconButton(
+          //               icon: const Icon(Icons.skip_previous),
+          //               onPressed: () {},
+          //             ),
+          //           ),
+          //           Expanded(
+          //             child: IconButton(
+          //               icon: const Icon(Icons.pause),
+          //               onPressed: () {},
+          //             ),
+          //           ),
+          //           Expanded(
+          //             child: IconButton(
+          //               icon: const Icon(Icons.skip_next),
+          //               onPressed: () {},
+          //             ),
+          //           )
+          //         ],
+          //       ))
+          //     ],
+          //   ),
+          // )
         ],
       ),
-      bottomNavigationBar: const AssetsAudio(),
+      bottomNavigationBar: const Controller(
+          // songnumber: songsnumber,
+          ),
+
+      // GestureDetector(
+      //   onTap: () {
+      //     Navigator.push(
+      //       context,
+      //       MaterialPageRoute(
+      //         builder: ((context) => Player(songnumber: songsnumber)),
+      //       ),
+      //     );
+      //   },
+      //   child: const Controller(
+      //       // songnumber: songsnumber,
+      //       ),
+      // ),
     );
   }
 
@@ -97,12 +173,14 @@ class _HomePageState extends State<HomePage> {
                 ));
       },
       child: Container(
+        clipBehavior: Clip.antiAliasWithSaveLayer,
         height: 350,
         width: screenwidth,
         decoration: BoxDecoration(
             color: Colors.amber, borderRadius: BorderRadius.circular(11)),
         child: Image(
-          image: NetworkImage(image),
+          // image: NetworkImage(image),
+          image: AssetImage(image),
           fit: BoxFit.fill,
         ),
       ),

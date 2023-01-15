@@ -2,38 +2,40 @@ import 'package:flutter/material.dart';
 import 'package:major_project/player/playseparate.dart';
 import 'package:get_it/get_it.dart';
 
-class AssetsAudio extends StatefulWidget {
-  const AssetsAudio({
+class AsseAudio extends StatefulWidget {
+  const AsseAudio({
     super.key,
   });
 
   @override
-  State<AssetsAudio> createState() => _AssetsAudioState();
+  State<AsseAudio> createState() => _AsseAudioState();
 }
 
-class _AssetsAudioState extends State<AssetsAudio> {
+class _AsseAudioState extends State<AsseAudio> {
   final PlayerSeparate playerSeparate = GetIt.instance.get<PlayerSeparate>();
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.amber,
-      height: 50,
-      child: Row(
-        children: [
-          Expanded(
-              child: IconButton(
-                  onPressed: () {
-                    playerSeparate.playy();
-                  },
-                  icon: const Icon(Icons.play_arrow))),
-          Expanded(
-              child: IconButton(
-                  onPressed: () {
-                    playerSeparate.pausee();
-                  },
-                  icon: const Icon(Icons.pause)))
-        ],
+    return Material(
+      child: Container(
+        color: Colors.amber,
+        height: 50,
+        child: Row(
+          children: [
+            Expanded(
+                child: IconButton(
+                    onPressed: () {
+                      playerSeparate.playy();
+                    },
+                    icon: const Icon(Icons.play_arrow))),
+            Expanded(
+                child: IconButton(
+                    onPressed: () {
+                      playerSeparate.pausee();
+                    },
+                    icon: const Icon(Icons.pause)))
+          ],
+        ),
       ),
     );
   }

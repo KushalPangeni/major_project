@@ -1,17 +1,21 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:major_project/pages/homepage.dart';
 import 'package:get_it/get_it.dart';
+import 'package:major_project/pages/homepage.dart';
 import 'package:major_project/player/playseparate.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   //creating PlayerSeparate Class as singleton by using GetIt package
   final GetIt getIt = GetIt.instance;
   getIt.registerLazySingleton(() => PlayerSeparate());
   log('main');
-  runApp(const MyApp());
+  runApp(Provider(create: (context) => PlayerSeparate(), child: const MyApp()));
 }
+
+int songsnumber = 0;
+bool isPlayed = false;
 
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -34,6 +38,7 @@ class _MyAppState extends State<MyApp> {
         child: Scaffold(
           backgroundColor: Colors.orange[200],
           body: const HomePage(),
+          // body: const Player(),
         ),
       ),
     );

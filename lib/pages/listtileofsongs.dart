@@ -1,8 +1,7 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:major_project/player/assetaudio.dart';
+import 'package:major_project/pages/player.dart';
+import 'package:major_project/player/controller.dart';
 import 'package:major_project/pages/drawer.dart';
 import 'package:major_project/player/playseparate.dart';
 import 'package:major_project/songs.dart';
@@ -25,9 +24,9 @@ class _ListtileofsongsState extends State<Listtileofsongs> {
 
   eindex(int a) {
     setState(() {
-      log(a.toString() + ' index');
-      endex = a;
-      log(endex.toString() + ' endex value');
+      // log(a.toString() + ' index');
+      endex = a; //songnumber = endex
+      // log(endex.toString() + ' endex value');
     });
   }
 
@@ -47,11 +46,47 @@ class _ListtileofsongsState extends State<Listtileofsongs> {
                   setState(() {
                     eindex(index);
                   });
-                  log('$index tapped');
-                  playerSeparate.open(endex);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: ((context) {
+                        return Player(
+                          songnumber: endex,
+                        );
+                      }),
+                    ),
+                  );
+                  playerSeparate.open(endex); //donot comment
+                  // context.read<PlayerSeparate>().open(endex);
                 },
               ))),
-      bottomNavigationBar: const AssetsAudio(),
+      bottomNavigationBar: InkWell(
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: ((context) => Player(songnumber: endex)),
+            ),
+          );
+        },
+        child: const Controller(
+            // songnumber: songsnumber,
+            ),
+      ),
+      // GestureDetector(
+      //   onTap: () {
+      //     // log('Tapped');
+      // Navigator.push(
+      //   context,
+      //   MaterialPageRoute(
+      //     builder: ((context) => Player(songnumber: endex)),
+      //   ),
+      // );
+      //   },
+      //   child: const Controller(
+      //       // songnumber: songsnumber,
+      //       ),
+      // ),
     );
   }
 }

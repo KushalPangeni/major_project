@@ -4,19 +4,23 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
+import 'package:get_it/get_it.dart';
+import 'package:major_project/player/playseparate.dart';
 
 class MSlider extends StatefulWidget {
-  final String pathName;
-  const MSlider(this.pathName);
+  // final String pathName;
+  // const MSlider(this.pathName);
 
   // const Music({super.key,@required String pathname});
-  // const MSlider({@required this.pathName, Key? key}) : super(key: key);
+  const MSlider({Key? key}) : super(key: key);
 
   @override
   State<MSlider> createState() => _MSliderState();
 }
 
 class _MSliderState extends State<MSlider> {
+  final PlayerSeparate playerSeparate = GetIt.instance.get<PlayerSeparate>();
+
   List<FileSystemEntity> songs = [];
   final player = AudioPlayer();
   bool isPlaying = false;
@@ -27,7 +31,8 @@ class _MSliderState extends State<MSlider> {
   @override
   void initState() {
     super.initState();
-    songPathName = widget.pathName;
+
+    // songPathName = widget.pathName;
 
     //listen to states : Playing Pause Stop
     player.onPlayerStateChanged.listen((state) {
@@ -65,7 +70,9 @@ class _MSliderState extends State<MSlider> {
   Future setAudio() async {
     // await player.setSource(AssetSource('songs/music3.mp3'));
     // DeviceFileSource(songPathName);
-    player.play(DeviceFileSource(songPathName));
+    // player.play(DeviceFileSource(songPathName));
+    player.setSource(AssetSource(songPathName));
+    // player.play()
 
     // player.setSource(AssetSource('songs/music1.mp3'));
     // log('player.setSours');
@@ -87,55 +94,68 @@ class _MSliderState extends State<MSlider> {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      // height: 50,
-      child: Column(
-        children: [
-          Slider(
-              min: 0,
-              max: duration.inSeconds.toDouble(),
-              value: position.inSeconds.toDouble(),
-              onChanged: (value) {
-                setState(() {
-                  final position = Duration(seconds: value.toInt());
-                  player.seek(position);
-                  // changeToSeconds(value.toInt());
-                  // value = value;
-                });
-              }),
-          Padding(
-            padding: const EdgeInsets.all(15.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                // Text(position.toString().split('.')[0]),
-                // Text((duration - position).toString().split('.')[0]),
-                //this upper one is so easy to make
+    return Material(
+      child: Center(
+        child: SizedBox(
+          // height: 50,
+          child: Column(
+            children: [
+              Slider(
+                  min: 0,
+                  max: duration.inSeconds.toDouble(),
+                  value: position.inSeconds.toDouble(),
+                  onChanged: (value) {
+                    setState(() {
+                      final position = Duration(seconds: value.toInt());
+                      player.seek(position);
+                      // changeToSeconds(value.toInt());
+                      // value = value;
+                    });
+                  }),
+              Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    // Text(position.toString().split('.')[0]),
+                    // Text((duration - position).toString().split('.')[0]),
+                    //this upper one is so easy to make
 
-                Text(formatTime(position)),
-                Text(formatTime(duration - position))
-                // Text('$duration.')
-              ],
-            ),
+                    Text(formatTime(position)),
+                    Text(formatTime(duration - position))
+                    // Text('$duration.')
+                  ],
+                ),
+              ),
+              CircleAvatar(
+                child: IconButton(
+                  icon: Icon(playerSeparate.isPlaying
+                      ? Icons.pause
+                      : Icons.play_arrow),
+                  onPressed: () {
+                    setState(() {
+                      if (playerSeparate.isPlaying) {
+                        playerSeparate.pausee();
+                      } else {
+                        playerSeparate.playy();
+                      }
+                    });
+                    // setState(() {
+                    //   if (isPlaying) {
+                    //     player.pause();
+                    //   } else {
+                    //     // DeviceFileSource(songPathName);
+                    //     // player.play(DeviceFileSource(songPathName));
+                    //     // log('messageOnPressed');
+                    //     player.resume();
+                    //   }
+                    // });
+                  },
+                ),
+              )
+            ],
           ),
-          CircleAvatar(
-            child: IconButton(
-              icon: Icon(isPlaying ? Icons.pause : Icons.play_arrow),
-              onPressed: () {
-                setState(() {
-                  if (isPlaying) {
-                    player.pause();
-                  } else {
-                    // DeviceFileSource(songPathName);
-                    // player.play(DeviceFileSource(songPathName));
-                    // log('messageOnPressed');
-                    player.resume();
-                  }
-                });
-              },
-            ),
-          )
-        ],
+        ),
       ),
     );
   }
