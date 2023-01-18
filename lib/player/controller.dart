@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get_it/get_it.dart';
 import 'package:major_project/main.dart';
+import 'package:major_project/player/endex.dart';
 // import 'package:major_project/main.dart';
 import 'package:major_project/player/playseparate.dart';
 
@@ -19,8 +21,7 @@ class Controller extends StatefulWidget {
 
 class _ControllerState extends State<Controller> {
   final PlayerSeparate playerSeparate = GetIt.instance.get<PlayerSeparate>();
-  // int songsname = 1;
-
+  Endex endex = Get.find<Endex>();
   @override
   void initState() {
     // songsname = widget.songnumber;
@@ -38,6 +39,7 @@ class _ControllerState extends State<Controller> {
         padding: const EdgeInsets.fromLTRB(0, 2, 5, 2),
         child: Row(
           children: [
+            //Image container
             Expanded(
               child: Card(
                 clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -49,6 +51,7 @@ class _ControllerState extends State<Controller> {
                     borderRadius: BorderRadius.circular(10)),
               ),
             ),
+            //Song name and singer name
             Expanded(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -63,6 +66,7 @@ class _ControllerState extends State<Controller> {
                 ],
               ),
             ),
+            //Row of icon button previous pause next
             Expanded(
                 child: Row(
               children: [

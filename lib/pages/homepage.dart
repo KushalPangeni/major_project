@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:get_it/get_it.dart';
-import 'package:major_project/player/controller.dart';
 import 'package:major_project/pages/drawer.dart';
 import 'package:major_project/pages/genre.dart';
 import 'package:major_project/player/playseparate.dart';
@@ -53,7 +52,7 @@ class _HomePageState extends State<HomePage> {
             child: CarouselSlider(
                 items: [
                   //musicList[index]['trackDetails']['coverArt']
-                  song('images/cover.jpg', screenwidth),
+                  song(musicList[17]['trackDetails']['coverArt'], screenwidth),
                   song(musicList[5]['trackDetails']['coverArt'], screenwidth),
                   song(musicList[11]['trackDetails']['coverArt'], screenwidth),
                   song(musicList[8]['trackDetails']['coverArt'], screenwidth),
@@ -141,9 +140,9 @@ class _HomePageState extends State<HomePage> {
           // )
         ],
       ),
-      bottomNavigationBar: const Controller(
-          // songnumber: songsnumber,
-          ),
+      // bottomNavigationBar: const Controller(
+      //     // songnumber: songsnumber,
+      //     ),
 
       // GestureDetector(
       //   onTap: () {
@@ -179,8 +178,8 @@ class _HomePageState extends State<HomePage> {
         decoration: BoxDecoration(
             color: Colors.amber, borderRadius: BorderRadius.circular(11)),
         child: Image(
-          // image: NetworkImage(image),
-          image: AssetImage(image),
+          image: NetworkImage(image),
+          // image: AssetImage(image),
           fit: BoxFit.fill,
         ),
       ),
