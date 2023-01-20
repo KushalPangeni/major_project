@@ -1,6 +1,6 @@
-# major_project
+# GeetSunam
 
-A new Flutter project.
+A new Flutter project. Music player with genre classification and recommendation to be completed within 2-3 months.
 
 ## Getting Started
 
