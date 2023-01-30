@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:major_project/pages/genre_page.dart';
 
 class GenreCard extends StatefulWidget {
   const GenreCard({super.key});
@@ -26,22 +27,27 @@ class _GenreCardState extends State<GenreCard> {
       child: ListView(
         scrollDirection: Axis.horizontal,
         children: [
-          card('Pop', 'images/Pop.jpg'),
-          card('Classical', 'images/placeholder-image.jpg'),
-          card('Rock', 'images/placeholder-image.jpg'),
-          card('Dohori', 'images/dohori.jpg'),
-          card('Teej', 'images/teej.png'),
-          card('Adhunik', 'images/placeholder-image.jpg'),
-          card('Gajal', 'images/placeholder-image.jpg'),
-          card('Hiphop', 'images/placeholder-image.jpg'),
+          card('Pop', 'images/Pop.jpg', 'pop'),
+          card('Classical', 'images/placeholder-image.jpg', 'Classical'),
+          card('Rock', 'images/placeholder-image.jpg', 'Rock'),
+          card('Dohori', 'images/dohori.jpg', 'Dohori'),
+          card('Teej', 'images/teej.png', 'Teej'),
+          card('Adhunik', 'images/placeholder-image.jpg', 'Adhunik'),
+          card('Gajal', 'images/placeholder-image.jpg', 'Gajal'),
+          card('Hiphop', 'images/placeholder-image.jpg', 'Hiphop'),
         ],
       ),
     );
   }
 
-  Widget card(String genre, String img) {
+  Widget card(String genre, String img, String genree) {
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: ((context) => GenrePage(genre: genree))));
+      },
       child: SizedBox(
         height: 100,
         width: 100,

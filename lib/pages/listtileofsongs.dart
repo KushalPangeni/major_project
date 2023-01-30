@@ -14,6 +14,7 @@ class Listtileofsongs extends StatefulWidget {
 }
 
 class _ListtileofsongsState extends State<Listtileofsongs> {
+  // Endex endex = Endex();
   int endex = 0;
   List<Map> musiclist = musicList;
   PlayerSeparate playerSeparate = GetIt.instance.get<PlayerSeparate>();
@@ -36,30 +37,35 @@ class _ListtileofsongsState extends State<Listtileofsongs> {
       drawer: const Drawer(
         child: DrawerList(),
       ),
-      appBar: AppBar(title: const Text('Explore')),
+      appBar: AppBar(
+        title: const Text('Explore'),
+      ),
       body: ListView.builder(
-          itemCount: musiclist.length,
-          itemBuilder: ((context, index) => ListTile(
-                title: Text(musicList[index]['trackDetails']['title']),
-                subtitle: Text(musicList[index]['artistsDetails']['name']),
-                onTap: () {
-                  setState(() {
-                    eindex(index);
-                  });
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: ((context) {
-                        return Player(
-                          songnumber: endex,
-                        );
-                      }),
-                    ),
-                  );
-                  playerSeparate.open(endex); //donot comment
-                  // context.read<PlayerSeparate>().open(endex);
-                },
-              ))),
+        itemCount: musiclist.length,
+        itemBuilder: ((context, index) => ListTile(
+              title: Text(musicList[index]['trackDetails']['title']),
+              subtitle: Text(musicList[index]['artistsDetails']['name']),
+              trailing: const Icon(Icons.favorite_outline),
+              onTap: () {
+                setState(() {
+                  eindex(index);
+                  // index(endex);
+                });
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: ((context) {
+                      return Player(
+                        songnumber: endex,
+                      );
+                    }),
+                  ),
+                );
+                playerSeparate.open(endex); //donot comment
+                // context.read<PlayerSeparate>().open(endex);
+              },
+            )),
+      ),
       bottomNavigationBar: InkWell(
         onTap: () {
           Navigator.push(
@@ -69,9 +75,9 @@ class _ListtileofsongsState extends State<Listtileofsongs> {
             ),
           );
         },
-        child: const Controller(
-            // songnumber: songsnumber,
-            ),
+        child: Controller(
+          songnumber: endex,
+        ),
       ),
       // GestureDetector(
       //   onTap: () {

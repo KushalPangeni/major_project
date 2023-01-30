@@ -129,15 +129,15 @@ class _MSliderState extends State<MSlider> {
               ),
               CircleAvatar(
                 child: IconButton(
-                  icon: Icon(playerSeparate.isPlaying
+                  icon: Icon(playerSeparate.player.playing
                       ? Icons.pause
                       : Icons.play_arrow),
                   onPressed: () {
                     setState(() {
-                      if (playerSeparate.isPlaying) {
-                        playerSeparate.pausee();
+                      if (playerSeparate.player.playing) {
+                        playerSeparate.player.pause();
                       } else {
-                        playerSeparate.playy();
+                        playerSeparate.player.play();
                       }
                     });
                     // setState(() {

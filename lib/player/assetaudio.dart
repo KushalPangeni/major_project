@@ -25,13 +25,13 @@ class _AsseAudioState extends State<AsseAudio> {
             Expanded(
                 child: IconButton(
                     onPressed: () {
-                      playerSeparate.playy();
+                      playerSeparate.player.play();
                     },
                     icon: const Icon(Icons.play_arrow))),
             Expanded(
                 child: IconButton(
                     onPressed: () {
-                      playerSeparate.pausee();
+                      playerSeparate.player.pause();
                     },
                     icon: const Icon(Icons.pause)))
           ],

@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:get_it/get_it.dart';
 import 'package:major_project/main.dart';
-import 'package:major_project/player/endex.dart';
-// import 'package:major_project/main.dart';
 import 'package:major_project/player/playseparate.dart';
+import 'package:major_project/songs.dart';
 
 class Controller extends StatefulWidget {
-  // final int songnumber;
+  final int songnumber;
   const Controller({
     super.key,
-    // required this.songnumber,
+    required this.songnumber,
   });
 
   // Controller.open(){}
@@ -21,10 +19,11 @@ class Controller extends StatefulWidget {
 
 class _ControllerState extends State<Controller> {
   final PlayerSeparate playerSeparate = GetIt.instance.get<PlayerSeparate>();
-  Endex endex = Get.find<Endex>();
+  List musiclist = musicList;
+
   @override
   void initState() {
-    // songsname = widget.songnumber;
+    songsnumber = widget.songnumber;
     super.initState();
     setState(() {});
   }
@@ -40,29 +39,32 @@ class _ControllerState extends State<Controller> {
         child: Row(
           children: [
             //Image container
-            Expanded(
-              child: Card(
-                clipBehavior: Clip.antiAliasWithSaveLayer,
-                child: const Image(
-                  image: AssetImage('images/me.png'),
-                  fit: BoxFit.fill,
-                ),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10)),
+            Container(
+              height: 60,
+              width: 90,
+              clipBehavior: Clip.antiAlias,
+              decoration:
+                  BoxDecoration(borderRadius: BorderRadius.circular(16)),
+              child: const Image(
+                image: AssetImage('images/cover.jpg'),
+                fit: BoxFit.contain,
               ),
+              // shape: RoundedRectangleBorder(
+              //     borderRadius: BorderRadius.circular(10)),
             ),
             //Song name and singer name
             Expanded(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
+                children: [
                   Text(
-                    "If I can't have love, I want Power",
+                    musiclist[songsnumber]['trackDetails']['title'],
                     overflow: TextOverflow.ellipsis,
-                    style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
+                    style: const TextStyle(
+                        fontSize: 15, fontWeight: FontWeight.w500),
                     maxLines: 1,
                   ),
-                  Text('Halsey')
+                  const Text('Halsey')
                 ],
               ),
             ),
@@ -78,17 +80,18 @@ class _ControllerState extends State<Controller> {
                 ),
                 Expanded(
                   child: IconButton(
-                    icon: isPlayed
+                    icon: playerSeparate.player.playing
+                        // isPlayed
                         ? const Icon(Icons.pause)
                         : const Icon(Icons.play_arrow),
                     onPressed: () {
                       setState(
                         () {
-                          if (isPlayed) {
-                            playerSeparate.pausee();
+                          if (playerSeparate.player.playing) {
+                            playerSeparate.player.pause();
                           } else {
                             // playerSeparate.open(songsnumber);
-                            playerSeparate.playy();
+                            playerSeparate.player.play();
                           }
                         },
                       );

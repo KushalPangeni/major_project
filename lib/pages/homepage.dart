@@ -1,8 +1,10 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:get_it/get_it.dart';
 import 'package:major_project/pages/drawer.dart';
 import 'package:major_project/pages/genre.dart';
+import 'package:major_project/pages/player.dart';
 import 'package:major_project/player/playseparate.dart';
 import 'package:major_project/songs.dart';
 
@@ -42,43 +44,73 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
       body: Column(
+        // mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-            height: 240,
-            width: screenwidth,
-            decoration: const BoxDecoration(
-              shape: BoxShape.rectangle,
+          const Padding(
+            padding: EdgeInsets.fromLTRB(8, 8, 8, 4.0),
+            child: Text(
+              "New Releases",
+              style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500),
             ),
-            child: CarouselSlider(
-                items: [
-                  //musicList[index]['trackDetails']['coverArt']
-                  song(musicList[17]['trackDetails']['coverArt'], screenwidth),
-                  song(musicList[5]['trackDetails']['coverArt'], screenwidth),
-                  song(musicList[11]['trackDetails']['coverArt'], screenwidth),
-                  song(musicList[8]['trackDetails']['coverArt'], screenwidth),
-                  song(musicList[6]['trackDetails']['coverArt'], screenwidth),
-                  song(musicList[7]['trackDetails']['coverArt'], screenwidth),
-                ],
-                options: CarouselOptions(
-                  autoPlayAnimationDuration: const Duration(milliseconds: 500),
-                  enlargeCenterPage: true,
-                  aspectRatio: 9 / 16,
-                  height: 250,
-                  autoPlay: true,
-                )),
+          ),
+          //CarouselSlider
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+              height: 240,
+              width: screenwidth,
+              decoration: const BoxDecoration(
+                shape: BoxShape.rectangle,
+              ),
+              child: CarouselSlider(
+                  items: [
+                    //musicList[index]['trackDetails']['coverArt']
+                    song(musicList[17]['trackDetails']['coverArt'], screenwidth,
+                        17),
+                    song(musicList[5]['trackDetails']['coverArt'], screenwidth,
+                        5),
+                    song(musicList[11]['trackDetails']['coverArt'], screenwidth,
+                        11),
+                    song(musicList[8]['trackDetails']['coverArt'], screenwidth,
+                        8),
+                    song(musicList[6]['trackDetails']['coverArt'], screenwidth,
+                        6),
+                    song(musicList[7]['trackDetails']['coverArt'], screenwidth,
+                        7),
+                  ],
+                  options: CarouselOptions(
+                    autoPlayAnimationDuration:
+                        const Duration(milliseconds: 500),
+                    enlargeCenterPage: true,
+                    aspectRatio: 9 / 16,
+                    height: 250,
+                    autoPlay: true,
+                  )),
+            ),
           ),
           const SizedBox(
-            height: 30,
+            height: 20,
           ),
-          const Text(
-            "Genre",
-            style: TextStyle(fontSize: 25),
+          const Padding(
+            padding: EdgeInsets.fromLTRB(8, 8, 8, 4.0),
+            child: Text(
+              "Genre",
+              style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500),
+            ),
           ),
-          const SizedBox(
-            height: 30,
-          ), //2nd part
+          // const SizedBox(
+          //   height: 20,
+          // ), //2nd part
           const GenreCard(),
-          const SizedBox(height: 20),
+          const SizedBox(height: 15),
+          const Padding(
+            padding: EdgeInsets.fromLTRB(8, 8, 8, 4.0),
+            child: Text(
+              "Featured Artist",
+              style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500),
+            ),
+          ),
 
           // Container(
           //   height: 80,
@@ -160,16 +192,23 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget song(String image, screenwidth) {
+  Widget song(String image, screenwidth, int src) {
     return GestureDetector(
       onTap: () {
-        showDialog(
-            context: context,
-            builder: (context) => const AlertDialog(
-                  title: Text(
-                    "You can't play songs right now. If you want to know ask Kushal. Will be available soon.",
-                  ),
-                ));
+        playerSeparate.open(src);
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: ((context) => Player(songnumber: src)),
+          ),
+        );
+        // showDialog(
+        //     context: context,
+        //     builder: (context) => const AlertDialog(
+        //           title: Text(
+        //             "You can't play songs right now. If you want to know ask Kushal. Will be available soon.",
+        //           ),
+        //         ));
       },
       child: Container(
         clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -177,11 +216,21 @@ class _HomePageState extends State<HomePage> {
         width: screenwidth,
         decoration: BoxDecoration(
             color: Colors.amber, borderRadius: BorderRadius.circular(11)),
-        child: Image(
-          image: NetworkImage(image),
-          // image: AssetImage(image),
+        child: CachedNetworkImage(
           fit: BoxFit.fill,
+          imageUrl: image,
+          placeholder: (context, url) => const Image(
+            image: AssetImage('images/cover.jpg'),
+            fit: BoxFit.fill,
+          ),
+          errorWidget: (context, url, error) =>
+              const Image(image: AssetImage('images/cover.jpg')),
         ),
+        // Image(
+        //   image: NetworkImage(image),
+        //   // image: AssetImage(image),
+        //   fit: BoxFit.fill,
+        // ),
       ),
     );
   }

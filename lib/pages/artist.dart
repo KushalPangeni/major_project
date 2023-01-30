@@ -11,6 +11,8 @@ class ArtistPage extends StatefulWidget {
 
 class _ArtistPageState extends State<ArtistPage> {
   List<Map> musiclist = musicList;
+  List<String> allArtist = List<String>.generate(
+      musicList.length, (index) => musicList[index]['artistsDetails']['name']);
 
   @override
   Widget build(BuildContext context) {
@@ -22,19 +24,23 @@ class _ArtistPageState extends State<ArtistPage> {
           title: const Text("Artist Page"),
         ),
         body: GridView.count(
-            mainAxisSpacing: 20,
-            // crossAxisSpacing: ,
-            crossAxisCount: 3,
-            children: List.generate(
-                musiclist.length,
-                (index) => artist(musicList[index]['artistsDetails']['name'],
-                    musicList[index]['artistsDetails']['profile'])))
+          mainAxisSpacing: 20,
+          crossAxisCount: 3,
+          children: List.generate(
+            musiclist.length,
+            (index) => artist(
+              musicList[index]['artistsDetails']['name'],
+              musicList[index]['artistsDetails']['profile'],
+            ),
+          ),
+        )
         // ListView.builder(
         //   itemCount: musiclist.length,
         // itemBuilder: ((context, index) => artist(
         // musicList[index]['artistsDetails']['name'],
         // musicList[index]['artistsDetails']['profile'])),
         // ),
+
         );
   }
 

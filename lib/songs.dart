@@ -7,7 +7,7 @@ List<Map<dynamic, dynamic>> musicList = [
           "https://lh3.googleusercontent.com/VD95NuFOEERZ1ERVgs93wVdFrz1fg5GhxgpjPvfXvF4H7qT6Yb4QR-A_LhrvYqe5JsFP7UWUfRzj46U=s190-c-k-c0x00ffffff-no-rj-mo",
     },
     'genre': "pop",
-    // 'time': "4:19",
+    'time': "4:19",
     'trackDetails': {
       'ID': "1",
       'coverArt': "https://img.youtube.com/vi/fUk527d7LFU/maxresdefault.jpg",
